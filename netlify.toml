@@ -1,0 +1,16 @@
+[images]
+  remote_images = ["https://source.unsplash.com/.*", "https://images.unsplash.com/.*", "https://ext.same-assets.com/.*", "https://ugc.same-assets.com/.*"]
+
+[build]
+  command = "bun install && bun run db:generate && node scripts/init-prod-db.js && SKIP_ENV_VALIDATION=true bun run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NODE_ENV = "production"
+  DATABASE_URL = "file:./prisma/prod.db"
+  JWT_SECRET = "production-jwt-secret-key-123456789-secure"
+  NEXT_PUBLIC_APP_URL = "https://techflow-datavault.netlify.app"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
